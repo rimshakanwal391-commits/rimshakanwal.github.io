@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rimsha Kanwal - Bioinformatics Researcher</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600;700&family=Fira+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest: #1a4d2e; --sage: #4f772d; --moss: #90a955;
+            --cream: #fdfbf7; --charcoal: #2d3748; --slate: #718096; --gold: #d4af37;
+        }
+        body { font-family: 'Fira Sans', sans-serif; background: var(--cream); color: var(--charcoal); line-height: 1.6; overflow-x: hidden; }
+        
+        /* Navigation Tabs */
+        .nav-tabs { background: var(--forest); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; padding: 0 20px; }
+        .tab-button { background: none; border: none; color: white; padding: 15px 30px; cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.3s; position: relative; }
+        .tab-button:hover { background: rgba(255,255,255,0.1); }
+        .tab-button.active { background: rgba(255,255,255,0.2); }
+        .tab-button.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: white; }
+        
+        /* Tab Content */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        .header { background: linear-gradient(135deg, var(--forest), var(--sage)); color: white; padding: 3rem 2rem; text-align: center; position: relative; overflow: hidden; }
+        .header::before { content: ''; position: absolute; top: -50%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; }
+        .header-content { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
+        h1 { font-family: 'Crimson Pro', serif; font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 700; margin-bottom: 0.5rem; letter-spacing: -1px; }
+        .tagline { font-size: clamp(0.9rem, 2.5vw, 1.2rem); opacity: 0.95; margin-bottom: 1.5rem; font-weight: 300; }
+        .quick-stats { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
+        .stat { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); padding: 0.5rem 1.2rem; border-radius: 25px; font-size: 0.85rem; border: 1px solid rgba(255, 255, 255, 0.2); }
+        .social-links { display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
+        .social-link { background: rgba(255, 255, 255, 0.2); color: white; padding: 0.6rem 1.5rem; border-radius: 25px; text-decoration: none; font-size: 0.9rem; border: 1px solid rgba(255, 255, 255, 0.3); transition: all 0.3s ease; }
+        .social-link:hover { background: white; color: var(--forest); transform: translateY(-2px); }
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .section { margin-bottom: 3rem; }
+        .section-title { font-family: 'Crimson Pro', serif; font-size: clamp(1.5rem, 4vw, 2.2rem); color: var(--forest); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--moss); display: inline-block; }
+        .education-card { background: white; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); border-left: 4px solid var(--sage); transition: transform 0.3s ease, box-shadow 0.3s ease; }
+        .education-card:hover { transform: translateX(5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); }
+        .edu-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.8rem; flex-wrap: wrap; gap: 0.5rem; }
+        .edu-title { font-size: 1.3rem; font-weight: 600; color: var(--forest); }
+        .edu-date { background: var(--moss); color: white; padding: 0.3rem 0.8rem; border-radius: 15px; font-size: 0.85rem; white-space: nowrap; }
+        .edu-subtitle { color: var(--slate); margin-bottom: 0.8rem; font-size: 1rem; }
+        .badges { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.8rem; }
+        .badge { background: var(--cream); color: var(--forest); padding: 0.4rem 0.9rem; border-radius: 15px; font-size: 0.8rem; font-weight: 500; border: 1px solid var(--moss); }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .skill-category { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); }
+        .skill-category h3 { color: var(--forest); font-size: 1.1rem; margin-bottom: 1rem; font-weight: 600; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .skill-tag { background: var(--cream); color: var(--charcoal); padding: 0.4rem 0.8rem; border-radius: 12px; font-size: 0.85rem; border: 1px solid var(--moss); transition: all 0.2s ease; }
+        .skill-tag:hover { background: var(--moss); color: white; transform: scale(1.05); }
+        .research-card { background: white; border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); }
+        .research-header { background: linear-gradient(135deg, var(--forest), var(--sage)); color: white; padding: 1.5rem; }
+        .research-header h3 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+        .research-meta { font-size: 0.85rem; opacity: 0.9; }
+        .research-body { padding: 1.5rem; }
+        .research-body h4 { color: var(--forest); margin-bottom: 0.8rem; font-size: 1rem; }
+        .research-body ul { list-style: none; padding: 0; }
+        .research-body li { padding: 0.4rem 0 0.4rem 1.5rem; position: relative; color: var(--slate); font-size: 0.95rem; }
+        .research-body li::before { content: '▸'; position: absolute; left: 0; color: var(--moss); font-weight: bold; }
+        .pub-card { background: white; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); border-left: 4px solid var(--gold); }
+        .pub-title { color: var(--forest); font-weight: 600; margin-bottom: 0.5rem; font-size: 1.05rem; }
+        .pub-authors { color: var(--slate); margin-bottom: 0.3rem; font-size: 0.9rem; }
+        .pub-journal { font-style: italic; margin-bottom: 0.8rem; font-size: 0.9rem; }
+        .doi-badge { background: var(--cream); display: inline-block; padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.8rem; color: var(--forest); border: 1px solid var(--moss); }
+        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.2rem; }
+        .achievement-card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); text-align: center; transition: transform 0.3s ease; }
+        .achievement-card:hover { transform: translateY(-5px); }
+        .achievement-icon { font-size: 2.5rem; margin-bottom: 0.8rem; }
+        .achievement-title { color: var(--forest); font-weight: 600; margin-bottom: 0.4rem; font-size: 1rem; }
+        .achievement-desc { color: var(--slate); font-size: 0.85rem; }
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; }
+        .contact-card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); text-align: center; }
+        .contact-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+        .contact-card h3 { color: var(--forest); margin-bottom: 0.5rem; font-size: 1.1rem; }
+        .contact-card a { color: var(--sage); text-decoration: none; transition: color 0.3s ease; }
+        .contact-card a:hover { color: var(--moss); text-decoration: underline; }
+        
+        /* Project Cards */
+        .project-card { background: white; border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); border: 2px solid var(--moss); transition: transform 0.3s ease; }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); }
+        .project-header { background: linear-gradient(135deg, var(--sage), var(--moss)); color: white; padding: 1.5rem; }
+        .project-title { font-size: 1.3rem; margin-bottom: 0.5rem; font-weight: 600; }
+        .project-body { padding: 1.5rem; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+        .tech-tag { background: var(--cream); color: var(--forest); padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.8rem; border: 1px solid var(--moss); }
+        .project-link { display: inline-block; background: var(--forest); color: white; padding: 0.6rem 1.5rem; border-radius: 20px; text-decoration: none; transition: all 0.3s; margin-top: 0.5rem; margin-right: 0.5rem; }
+        .project-link:hover { background: var(--sage); transform: translateY(-2px); }
+        .featured-badge { display: inline-block; background: var(--gold); color: white; padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem; }
+        
+        /* Blog Styles */
+        .blog-container { max-width: 800px; margin: 0 auto; background: white; padding: 3rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .blog-container h1 { font-family: 'Crimson Pro', serif; font-size: 2.5rem; color: var(--forest); margin-bottom: 1rem; }
+        .blog-container h2 { font-size: 2rem; color: var(--forest); margin-top: 2rem; margin-bottom: 1rem; border-bottom: 2px solid var(--moss); padding-bottom: 0.5rem; }
+        .blog-container h3 { font-size: 1.5rem; color: var(--sage); margin-top: 1.5rem; margin-bottom: 0.8rem; }
+        .blog-container p { margin-bottom: 1.2rem; line-height: 1.8; }
+        
+        .footer { background: var(--forest); color: white; text-align: center; padding: 1.5rem; margin-top: 3rem; font-size: 0.9rem; }
+        .footer p { opacity: 0.9; }
+        @media (max-width: 768px) { .header { padding: 2rem 1rem; } .quick-stats, .social-links { gap: 0.8rem; } .stat { font-size: 0.75rem; padding: 0.4rem 0.8rem; } .edu-header { flex-direction: column; } .section-title { font-size: 1.5rem; } .tab-button { padding: 12px 20px; font-size: 14px; } }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <div class="nav-tabs">
+        <div class="nav-container">
+            <button class="tab-button active" onclick="showTab('home')">Home</button>
+            <button class="tab-button" onclick="showTab('projects')">Projects</button>
+            <button class="tab-button" onclick="showTab('blog')">Blog</button>
+        </div>
+    </div>
+
+    <!-- HOME TAB -->
+    <div id="home" class="tab-content active">
+        <div class="header">
+            <div class="header-content">
+                <h1>Rimsha Kanwal</h1>
+                <p class="tagline">Bioinformatics Researcher | AI Enthusiast | Decoding Genetic Patterns in Disease</p>
+                <div class="quick-stats">
+                    <span class="stat">🎓 CGPA: 3.95/4.0</span>
+                    <span class="stat">🏆 Dean's List ×3</span>
+                    <span class="stat">📄 Published Researcher</span>
+                    <span class="stat">🇨🇳 Tsinghua Scholar</span>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/rimshakanwal" target="_blank" class="social-link">💻 GitHub Profile</a>
+                    <a href="mailto:rimshakanwal391@gmail.com" class="social-link">📧 Email</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2 class="section-title">About</h2>
+                <div class="education-card">
+                    <p style="color: var(--slate); line-height: 1.8;">
+                        I am passionate about exploring the intersection of neuroscience, artificial intelligence, and bioinformatics. 
+                        My research focuses on understanding how the brain encodes information and how we can leverage AI and computational 
+                        methods to decode genetic patterns in disease, particularly Type 2 Diabetes in Pakistani populations. Currently 
+                        pursuing my Bachelor's in Bioinformatics at The University of Lahore, I've maintained a perfect academic record 
+                        while engaging in cutting-edge research projects ranging from machine learning applications in medical diagnostics 
+                        to GPT-based biological interpretation systems.
+                    </p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Education</h2>
+                
+                <div class="education-card">
+                    <div class="edu-header">
+                        <div>
+                            <div class="edu-title">The University of Lahore</div>
+                            <div class="edu-subtitle">Bachelor of Science in Bioinformatics</div>
+                        </div>
+                        <span class="edu-date">2023 - Present</span>
+                    </div>
+                    <div class="badges">
+                        <span class="badge">CGPA: 3.95/4.0</span>
+                        <span class="badge">Top Student</span>
+                        <span class="badge">Dean's List ×3</span>
+                        <span class="badge">90% Tuition Waiver</span>
+                    </div>
+                    <p style="margin-top: 1rem; color: var(--slate); font-size: 0.9rem;">
+                        <strong>Key Courses:</strong> Linear Algebra, Data Structures, Neurobiology, Probability & Statistics, 
+                        Research Methodology, Multivariable Calculus, OOP (All A+ grades)
+                    </p>
+                </div>
+
+                <div class="education-card">
+                    <div class="edu-header">
+                        <div>
+                            <div class="edu-title">Tsinghua University, Beijing</div>
+                            <div class="edu-subtitle">Generative AI Summer School</div>
+                        </div>
+                        <span class="edu-date">July 2025</span>
+                    </div>
+                    <p style="margin-top: 1rem; color: var(--slate); font-size: 0.9rem;">
+                        <strong>Project:</strong> GPT-based Biological Interpretation Assistant - Developed prompt engineering 
+                        system for medical diagnosis support using GPT models to explain gene marker lists and identify cell types.
+                    </p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Programming</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">C/C++</span>
+                            <span class="skill-tag">Java</span>
+                            <span class="skill-tag">R</span>
+                            <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">Linux</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>AI & Machine Learning</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">LLM API</span>
+                            <span class="skill-tag">PyTorch</span>
+                            <span class="skill-tag">Deep Learning</span>
+                            <span class="skill-tag">Prompt Engineering</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Bioinformatics</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">scRNA-seq</span>
+                            <span class="skill-tag">Seurat</span>
+                            <span class="skill-tag">Scanpy</span>
+                            <span class="skill-tag">PyMOL</span>
+                            <span class="skill-tag">MEGA</span>
+                        </div>
+                    </div>
+
+                    <div class="skill-category">
+                        <h3>Data Analysis</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Pandas</span>
+                            <span class="skill-tag">NumPy</span>
+                            <span class="skill-tag">SPSS</span>
+                            <span class="skill-tag">Matplotlib</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Research Experience</h2>
+
+                <div class="research-card">
+                    <div class="research-header">
+                        <h3>Generative AI for Medical Diagnosis</h3>
+                        <div class="research-meta">📍 Tsinghua University, Beijing | 📅 July 2025</div>
+                    </div>
+                    <div class="research-body">
+                        <h4>Prompt Engineering for Medical Diagnosis Support Using GPT Models</h4>
+                        <ul>
+                            <li>Developed GPT-based system to explain gene marker lists in accessible language</li>
+                            <li>Designed concise prompts for automated cell type identification</li>
+                            <li>Implemented Python scripts for automated marker gene analysis</li>
+                            <li>Integrated GPT summaries with scRNA-seq analytical pipelines</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="research-card">
+                    <div class="research-header">
+                        <h3>Machine Learning in Medical Imaging</h3>
+                        <div class="research-meta">📍 CAMB, Punjab University | 📅 May 2023 - Aug 2024</div>
+                    </div>
+                    <div class="research-body">
+                        <h4>Gallbladder Stone Detection Through Machine Learning</h4>
+                        <ul>
+                            <li>Extracted features from medical ultrasound datasets using Python</li>
+                            <li>Applied Random Forest algorithms for automated stone detection</li>
+                            <li>Evaluated and optimized model performance through data refinement</li>
+                            <li>Co-authored research paper on real-time clinical decision support systems</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="research-card">
+                    <div class="research-header">
+                        <h3>Diabetes Genomics in Pakistani Population</h3>
+                        <div class="research-meta">📍 University of Lahore | 📅 Ongoing</div>
+                    </div>
+                    <div class="research-body">
+                        <h4>Genomic Analysis of Type 2 Diabetes Susceptibility</h4>
+                        <ul>
+                            <li>Built functional bioinformatics pipeline for variant analysis</li>
+                            <li>Developed genetic risk calculator for Pakistani populations</li>
+                            <li>Created visualizations comparing allele frequencies across populations</li>
+                            <li>Published project on GitHub with complete documentation</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Publications</h2>
+
+                <div class="pub-card">
+                    <div class="pub-title">Analysis of Machine Learning Algorithms for Real-Time Gallbladder Stone Identification from Ultrasound Images</div>
+                    <div class="pub-authors">Hong, C., Zafar, I., Ayaz, M. M., <strong>Kanwal R.</strong>, et al.</div>
+                    <div class="pub-journal">International Journal of Computational Intelligence Systems, 2025, 18(1), 1-28</div>
+                    <span class="doi-badge">DOI: 10.1007/s44196-025-00740-8</span>
+                </div>
+
+                <div class="pub-card">
+                    <div class="pub-title">Role of Computational Intelligence and Genetic Programming for Enhancing WSNs in Biomedical Monitoring</div>
+                    <div class="pub-authors">Hassan S., Tariq M., Abbasi F.L., <strong>Kanwal R.</strong>, Mushtaq Y.</div>
+                    <div class="pub-journal">In preparation</div>
+                </div>
+
+                <div class="pub-card">
+                    <div class="pub-title">Protein Folding in the Digital Age: AI and Bioinformatics Transformations</div>
+                    <div class="pub-authors"><strong>Rimsha Kanwal</strong>, Usman Ghani*</div>
+                    <div class="pub-journal">Under preparation</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Awards & Achievements</h2>
+                <div class="achievements-grid">
+                    <div class="achievement-card">
+                        <div class="achievement-icon">🏆</div>
+                        <div class="achievement-title">Dean's List</div>
+                        <div class="achievement-desc">3 consecutive semesters</div>
+                    </div>
+
+                    <div class="achievement-card">
+                        <div class="achievement-icon">🎓</div>
+                        <div class="achievement-title">Class Topper</div>
+                        <div class="achievement-desc">CGPA 3.95/4.0</div>
+                    </div>
+
+                    <div class="achievement-card">
+                        <div class="achievement-icon">💰</div>
+                        <div class="achievement-title">Merit Scholarship</div>
+                        <div class="achievement-desc">90% tuition waiver</div>
+                    </div>
+
+                    <div class="achievement-card">
+                        <div class="achievement-icon">🌟</div>
+                        <div class="achievement-title">PEEF Scholarship</div>
+                        <div class="achievement-desc">National merit recipient</div>
+                    </div>
+
+                    <div class="achievement-card">
+                        <div class="achievement-icon">👥</div>
+                        <div class="achievement-title">VP, Bio Club</div>
+                        <div class="achievement-desc">150+ students reached</div>
+                    </div>
+
+                    <div class="achievement-card">
+                        <div class="achievement-icon">🇨🇳</div>
+                        <div class="achievement-title">Tsinghua Scholar</div>
+                        <div class="achievement-desc">AI Summer School</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Contact</h2>
+                <div class="contact-grid">
+                    <div class="contact-card">
+                        <div class="contact-icon">📧</div>
+                        <h3>Email</h3>
+                        <a href="mailto:rimshakanwal391@gmail.com">rimshakanwal391@gmail.com</a>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">📍</div>
+                        <h3>Location</h3>
+                        <p style="color: var(--slate); font-size: 0.9rem;">Lahore, Pakistan</p>
+                    </div>
+
+                    <div class="contact-card">
+                        <div class="contact-icon">🔗</div>
+                        <h3>GitHub</h3>
+                        <a href="https://github.com/rimshakanwal" target="_blank">github.com/rimshakanwal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECTS TAB -->
+    <div id="projects" class="tab-content">
+        <div class="container" style="padding-top: 3rem;">
+            <h1 style="font-family: 'Crimson Pro', serif; font-size: 2.5rem; color: var(--forest); text-align: center; margin-bottom: 3rem;">GitHub Projects</h1>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">
+                        🧬 Diabetes Genomics - Pakistani Population
+                        <span class="featured-badge">⭐ FEATURED</span>
+                    </div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">Comprehensive bioinformatics analysis of Type 2 Diabetes genetic variants</div>
+                </div>
+                <div class="project-body">
+                    <p style="margin-bottom: 1rem; line-height: 1.7;">
+                        Complete bioinformatics research project investigating genetic variants associated with Type 2 Diabetes 
+                        in Pakistani populations. Built functional pipeline including data processing, risk score calculation, 
+                        population comparison, and visualization tools. Features machine learning algorithms, polygenic risk 
+                        scoring, and AI-powered interpretation. Includes working Python scripts, Jupyter notebooks, sample data, 
+                        and comprehensive documentation.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Pandas</span>
+                        <span class="tech-tag">Machine Learning</span>
+                        <span class="tech-tag">Genomics</span>
+                        <span class="tech-tag">Data Visualization</span>
+                    </div>
+                    <a href="https://github.com/rimshakanwal/diabetes-genomics-pakistan" target="_blank" class="project-link">
+                        View on GitHub →
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">🤖 GPT Bio Assistant</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">AI-powered biological data interpretation</div>
+                </div>
+                <div class="project-body">
+                    <p style="margin-bottom: 1rem;">
+                        AI tool using GPT models to explain gene markers, identify cell types from scRNA-seq data, and 
+                        integrate AI summaries with genomics pipelines.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">GPT API</span>
+                        <span class="tech-tag">Prompt Engineering</span>
+                        <span class="tech-tag">scRNA-seq</span>
+                    </div>
+                    <a href="https://github.com/rimshakanwal/gpt-bio-assistant" target="_blank" class="project-link">
+                        View on GitHub →
+                    </a>
+                </div>
+            </div>
+
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-title">🏥 Gallbladder Stone Detection</div>
+                    <div style="font-size: 0.9rem; opacity: 0.9;">ML model for medical image analysis</div>
+                </div>
+                <div class="project-body">
+                    <p style="margin-bottom: 1rem;">
+                        Machine learning system for automated detection of gallbladder stones from ultrasound images. 
+                        Published research in international journal.
+                    </p>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">scikit-learn</span>
+                        <span class="tech-tag">Image Processing</span>
+                    </div>
+                    <a href="https://github.com/rimshakanwal/gallbladder-detection" target="_blank" class="project-link">
+                        View on GitHub →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BLOG TAB -->
+    <div id="blog" class="tab-content">
+        <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+            <div class="blog-container">
+                <h1>10 AI-Powered Projects Transforming Healthcare in Pakistan</h1>
+                <p style="color: var(--slate); font-size: 0.9rem; margin-bottom: 2rem;">
+                    <strong>Author:</strong> Rimsha Kanwal | <strong>Date:</strong> January 6, 2026
+                </p>
+
+                <p>
+                    Artificial Intelligence is revolutionizing healthcare worldwide, but its potential impact in Pakistan—where diabetes 
+                    affects 30% of adults and cancer diagnosis often comes too late—is truly transformative. As a bioinformatics researcher, 
+                    I've identified 10 practical AI projects that could save millions of lives in our country.
+                </p>
+
+                <h2>AI for Diabetes in Pakistan (5 Projects)</h2>
+                <ol style="margin-left: 2rem; margin-bottom: 2rem;">
+                    <li><strong>Smart Risk Prediction System</strong> - ML model predicting diabetes 5-10 years before diagnosis</li>
+                    <li><strong>Genetic Variant Analysis</strong> - Identifying Pakistani-specific genetic risk factors</li>
+                    <li><strong>WhatsApp Chatbot</strong> - GPT-powered education in Urdu/Punjabi</li>
+                    <li><strong>AI Food Recognition</strong> - Carb counting for Pakistani meals via phone camera</li>
+                    <li><strong>Complications Predictor</strong> - Time-series AI predicting kidney/eye/nerve damage</li>
+                </ol>
+
+                <h2>AI for Cancer Treatment (5 Projects)</h2>
+                <ol start="6" style="margin-left: 2rem; margin-bottom: 2rem;">
+                    <li><strong>Early Detection from Blood Tests</strong> - ML analyzing routine CBC for cancer signals</li>
+                    <li><strong>Personalized Chemotherapy</strong> - AI optimizing doses for Pakistani genetics</li>
+                    <li><strong>AI Pathology Assistant</strong> - Computer vision analyzing biopsies in minutes</li>
+                    <li><strong>Treatment Response Predictor</strong> - Matching patients to best chemotherapy</li>
+                    <li><strong>Drug Repurposing</strong> - Finding affordable alternatives to expensive cancer drugs</li>
+                </ol>
+
+                <h2>Why This Matters</h2>
+                <p>
+                    Pakistan faces unique healthcare challenges: 30% diabetes prevalence, late-stage cancer diagnosis, limited pathologists, 
+                    and cost barriers. These AI projects address each challenge with scientifically-validated, implementable solutions 
+                    using existing infrastructure and open-source tools.
+                </p>
+
+                <p style="margin-top: 2rem; padding: 1.5rem; background: #e8f5e9; border-radius: 8px; text-align: center;">
+                    <strong>📖 Read the complete 8,500-word article with code examples, figures, and 16 scientific references:</strong><br>
+                    <a href="https://github.com/rimshakanwal/rimshakanwal.github.io/blob/main/blog/ai-healthcare-pakistan.md" 
+                       style="color: var(--sage); font-weight: 600;" target="_blank">
+                        View Full Article on GitHub →
+                    </a>
+                </p>
+
+                <p style="margin-top: 2rem; color: var(--slate);">
+                    <strong>Contact:</strong> rimshakanwal391@gmail.com | Want to collaborate on implementing these projects? Reach out!
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2026 Rimsha Kanwal. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; opacity: 0.8;">Passionate about decoding the brain's language through AI and data science</p>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+            
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
