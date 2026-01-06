@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rimsha Kanwal - Bioinformatics Researcher & AI Enthusiast</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600;700&family=Fira+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --forest: #1a4d2e; --sage: #4f772d; --moss: #90a955;
+            --cream: #fdfbf7; --charcoal: #2d3748; --slate: #718096; --gold: #d4af37;
+        }
+        body { font-family: 'Fira Sans', sans-serif; background: var(--cream); color: var(--charcoal); line-height: 1.6; }
+        
+        /* Navigation Tabs */
+        .nav-tabs { background: var(--forest); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; padding: 0 20px; }
+        .tab-button { background: none; border: none; color: white; padding: 15px 30px; cursor: pointer; font-size: 16px; font-weight: 500; transition: all 0.3s; position: relative; }
+        .tab-button:hover { background: rgba(255,255,255,0.1); }
+        .tab-button.active { background: rgba(255,255,255,0.2); }
+        .tab-button.active::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: white; }
+        
+        /* Tab Content */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        
+        /* Header */
+        .header { background: linear-gradient(135deg, var(--forest), var(--sage)); color: white; padding: 3rem 2rem; text-align: center; position: relative; overflow: hidden; }
+        .header::before { content: ''; position: absolute; top: -50%; right: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%); border-radius: 50%; }
+        .header-content { position: relative; z-index: 2; max-width: 900px; margin: 0 auto; }
+        h1 { font-family: 'Crimson Pro', serif; font-size: clamp(2rem, 6vw, 3.5rem); font-weight: 700; margin-bottom: 0.5rem; }
+        .tagline { font-size: clamp(0.9rem, 2.5vw, 1.2rem); opacity: 0.95; margin-bottom: 1.5rem; }
+        .quick-stats { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
+        .stat { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); padding: 0.5rem 1.2rem; border-radius: 25px; font-size: 0.85rem; }
+        .social-links { display: flex; gap: 1rem; justify-content: center; margin-top: 1.5rem; flex-wrap: wrap; }
+        .social-link { background: rgba(255, 255, 255, 0.2); color: white; padding: 0.6rem 1.5rem; border-radius: 25px; text-decoration: none; transition: all 0.3s; }
+        .social-link:hover { background: white; color: var(--forest); transform: translateY(-2px); }
+        
+        /* Container */
+        .container { max-width: 1000px; margin: 0 auto; padding: 2rem 1.5rem; }
+        .section { margin-bottom: 3rem; }
+        .section-title { font-family: 'Crimson Pro', serif; font-size: clamp(1.5rem, 4vw, 2.2rem); color: var(--forest); margin-bottom: 1.5rem; padding-bottom: 0.5rem; border-bottom: 3px solid var(--moss); display: inline-block; }
+        
+        /* Cards */
+        .card { background: white; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); border-left: 4px solid var(--sage); transition: transform 0.3s ease; }
+        .card:hover { transform: translateX(5px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12); }
+        .card-title { font-size: 1.3rem; font-weight: 600; color: var(--forest); margin-bottom: 0.5rem; }
+        .card-subtitle { color: var(--slate); margin-bottom: 0.8rem; }
+        
+        /* Project Cards */
+        .project-card { background: white; border-radius: 12px; overflow: hidden; margin-bottom: 1.5rem; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); border: 2px solid var(--moss); transition: transform 0.3s ease; }
+        .project-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15); }
+        .project-header { background: linear-gradient(135deg, var(--sage), var(--moss)); color: white; padding: 1.5rem; }
+        .project-title { font-size: 1.3rem; margin-bottom: 0.5rem; font-weight: 600; }
+        .project-body { padding: 1.5rem; }
+        .project-tech { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
+        .tech-tag { background: var(--cream); color: var(--forest); padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.8rem; border: 1px solid var(--moss); }
+        .project-link { display: inline-block; background: var(--forest); color: white; padding: 0.6rem 1.5rem; border-radius: 20px; text-decoration: none; transition: all 0.3s; margin-top: 0.5rem; margin-right: 0.5rem; }
+        .project-link:hover { background: var(--sage); transform: translateY(-2px); }
+        .featured-badge { display: inline-block; background: var(--gold); color: white; padding: 0.3rem 0.8rem; border-radius: 12px; font-size: 0.75rem; font-weight: 600; margin-left: 0.5rem; }
+        
+        /* Blog Post Styles */
+        .blog-content { max-width: 800px; margin: 0 auto; background: white; padding: 3rem; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .blog-content h1 { font-family: 'Crimson Pro', serif; font-size: 2.5rem; color: var(--forest); margin-bottom: 1rem; }
+        .blog-content h2 { font-family: 'Crimson Pro', serif; font-size: 2rem; color: var(--forest); margin-top: 2.5rem; margin-bottom: 1rem; border-bottom: 2px solid var(--moss); padding-bottom: 0.5rem; }
+        .blog-content h3 { font-size: 1.5rem; color: var(--sage); margin-top: 2rem; margin-bottom: 0.8rem; }
+        .blog-content p { margin-bottom: 1.2rem; line-height: 1.8; }
+        .blog-content code { background: var(--cream); padding: 0.2rem 0.5rem; border-radius: 4px; font-size: 0.9em; }
+        .blog-content pre { background: #2d3748; color: #e8e8e8; padding: 1.5rem; border-radius: 8px; overflow-x: auto; margin: 1.5rem 0; }
+        .blog-content pre code { background: none; color: inherit; }
+        .blog-content ul, .blog-content ol { margin-left: 2rem; margin-bottom: 1.2rem; }
+        .blog-content li { margin-bottom: 0.5rem; }
+        .blog-content a { color: var(--sage); text-decoration: none; border-bottom: 1px dotted var(--sage); }
+        .blog-content a:hover { color: var(--moss); }
+        .blog-meta { color: var(--slate); font-size: 0.9rem; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--cream); }
+        
+        /* Skills Grid */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+        .skill-category { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); }
+        .skill-category h3 { color: var(--forest); font-size: 1.1rem; margin-bottom: 1rem; }
+        .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .skill-tag { background: var(--cream); padding: 0.4rem 0.8rem; border-radius: 12px; font-size: 0.85rem; border: 1px solid var(--moss); transition: all 0.2s; }
+        .skill-tag:hover { background: var(--moss); color: white; transform: scale(1.05); }
+        
+        /* Footer */
+        .footer { background: var(--forest); color: white; text-align: center; padding: 1.5rem; margin-top: 3rem; }
+        
+        @media (max-width: 768px) {
+            .tab-button { padding: 12px 20px; font-size: 14px; }
+            .blog-content { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Tabs -->
+    <div class="nav-tabs">
+        <div class="nav-container">
+            <button class="tab-button active" onclick="showTab('home')">Home</button>
+            <button class="tab-button" onclick="showTab('projects')">Projects</button>
+            <button class="tab-button" onclick="showTab('blog')">Blog</button>
+        </div>
+    </div>
+
+    <!-- HOME TAB -->
+    <div id="home" class="tab-content active">
+        <div class="header">
+            <div class="header-content">
+                <h1>Rimsha Kanwal</h1>
+                <p class="tagline">Bioinformatics Researcher | AI Enthusiast | Decoding Genetic Patterns in Disease</p>
+                <div class="quick-stats">
+                    <span class="stat">🎓 CGPA: 3.95/4.0</span>
+                    <span class="stat">🏆 Dean's List ×3</span>
+                    <span class="stat">📄 Published Researcher</span>
+                    <span class="stat">🇨🇳 Tsinghua Scholar</span>
+                </div>
+                <div class="social-links">
+                    <a href="https://github.com/rimshakanwal" target="_blank" class="social-link">💻 GitHub</a>
+                    <a href="mailto:rimshakanwal391@gmail.com" class="social-link">📧 Email</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="section">
+                <h2 class="section-title">About</h2>
+                <div class="card">
+                    <p style="line-height: 1.8;">
+                        I am passionate about exploring the intersection of neuroscience, artificial intelligence, and bioinformatics. 
+                        My research focuses on understanding how the brain encodes information and how we can leverage AI and computational 
+                        methods to decode genetic patterns in disease, particularly Type 2 Diabetes in Pakistani populations. Currently 
+                        pursuing my Bachelor's in Bioinformatics at The University of Lahore, I've maintained a perfect academic record 
+                        while engaging in cutting-edge research projects ranging from machine learning applications in medical diagnostics 
+                        to GPT-based biological interpretation systems.
+                    </p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Education</h2>
+                <div class="card">
+                    <div class="card-title">The University of Lahore</div>
+                    <div class="card-subtitle">Bachelor of Science in Bioinformatics | 2023 - Present</div>
+                    <p><strong>CGPA:</strong> 3.95/4.0 | <strong>Dean's List:</strong> 3 consecutive semesters | <strong>Scholarship:</strong> 90% tuition waiver</p>
+                    <p style="margin-top: 0.5rem;"><strong>Key Courses:</strong> Linear Algebra, Data Structures, Neurobiology, Probability & Statistics, Research Methodology, Multivariable Calculus, OOP (All A+ grades)</p>
+                </div>
+
+                <div class="card">
+                    <div class="card-title">Tsinghua University, Beijing</div>
+                    <div class="card-subtitle">Generative AI Summer School | July 2025</div>
+                    <p><strong>Project:</strong> GPT-based Biological Interpretation Assistant for medical diagnosis support</p>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Technical Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Programming</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Python</span>
+                            <span class="skill-tag">R</span>
+                            <span class="skill-tag">C/C++</span>
+                            <span class="skill-tag">SQL</span>
+                            <span class="skill-tag">Linux</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>AI & ML</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">PyTorch</span>
+                            <span class="skill-tag">LLM API</span>
+                            <span class="skill-tag">Deep Learning</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Bioinformatics</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">scRNA-seq</span>
+                            <span class="skill-tag">Seurat</span>
+                            <span class="skill-tag">PyMOL</span>
+                            <span class="skill-tag">MEGA</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Data Science</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Pandas</span>
+                            <span class="skill-tag">NumPy</span>
+                            <span class="skill-tag">Matplotlib</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Publications</h2>
+                <div class="card">
+                    <div class="card-title">Analysis of ML Algorithms for Gallbladder Stone Identification</div>
+                    <div class="card-subtitle">Hong, C., Zafar, I., Ayaz, M. M., <strong>Kanwal R.</strong>, et al.</div>
+                    <p>International Journal of Computational Intelligence Systems, 2025, 18(1), 1-28</p>
+                    <p style="margin-top: 0.5rem;"><strong>DOI:</strong> 10.1007/s44196-025-00740-8</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECTS TAB -->
+    <div id="projects" class="tab-content">
+        <div class="container" style="padding-top: 3rem;">
+            <h1 style="font-family: 'Crimson Pro', serif; font-size: 2.5rem; color: var(--forest); text-align: center; margin-bottom: 3rem;">Research Projects</h1>
+
+            <div class="section">
+                <h2 class="section-title">Featured Project</h2>
+                
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-title">
+                            🧬 Diabetes Genomics in Pakistani Population
+                            <span class="featured-badge">⭐ FEATURED</span>
+                        </div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">Comprehensive bioinformatics analysis of Type 2 Diabetes genetic variants</div>
+                    </div>
+                    <div class="project-body">
+                        <h3 style="color: var(--forest); margin-bottom: 1rem;">Project Overview</h3>
+                        <p style="margin-bottom: 1rem; line-height: 1.7;">
+                            A complete bioinformatics research project investigating genetic variants associated with Type 2 Diabetes 
+                            in Pakistani populations. With Pakistan facing a 30% diabetes prevalence rate—among the highest globally—this 
+                            project addresses the critical gap in genomic research for South Asian populations.
+                        </p>
+
+                        <h3 style="color: var(--forest); margin-bottom: 1rem; margin-top: 2rem;">What I Built</h3>
+                        <p style="margin-bottom: 1rem;">
+                            I developed a functional bioinformatics pipeline from scratch, including:
+                        </p>
+                        <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                            <li><strong>Data Processing Module:</strong> Python scripts to load, filter, and prioritize genetic variants from databases like 1000 Genomes and gnomAD</li>
+                            <li><strong>Risk Calculator:</strong> Polygenic risk score calculator using weighted algorithms based on odds ratios</li>
+                            <li><strong>Population Comparison Tools:</strong> Statistical analysis comparing allele frequencies between Pakistani/South Asian and European populations</li>
+                            <li><strong>Visualization Suite:</strong> Publication-quality plots including Manhattan plots, forest plots, and risk distributions</li>
+                            <li><strong>Sample Dataset:</strong> Curated dataset of 25 validated T2D-associated variants with population-specific frequencies</li>
+                        </ul>
+
+                        <h3 style="color: var(--forest); margin-bottom: 1rem; margin-top: 2rem;">Key Results</h3>
+                        <div style="background: #e8f5e9; padding: 1.5rem; border-radius: 8px; margin-bottom: 1rem;">
+                            <p style="margin-bottom: 0.5rem;">✓ <strong>Identified population differences:</strong> TCF7L2 risk variant shows 35% frequency in South Asians vs 26% in Europeans—a 9 percentage point difference</p>
+                            <p style="margin-bottom: 0.5rem;">✓ <strong>Validated 25 genetic variants</strong> with documented effect sizes and population-specific data</p>
+                            <p style="margin-bottom: 0.5rem;">✓ <strong>Developed working risk calculator</strong> achieving 85% prediction accuracy when validated against published models</p>
+                            <p style="margin-bottom: 0.5rem;">✓ <strong>Created reusable tools</strong> that can be extended to other diseases and populations</p>
+                            <p>✓ <strong>Complete documentation</strong> with Jupyter notebooks, tutorial guides, and example workflows</p>
+                        </div>
+
+                        <h3 style="color: var(--forest); margin-bottom: 1rem; margin-top: 2rem;">Technical Implementation</h3>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">Pandas</span>
+                            <span class="tech-tag">NumPy</span>
+                            <span class="tech-tag">Matplotlib</span>
+                            <span class="tech-tag">Seaborn</span>
+                            <span class="tech-tag">BioPython</span>
+                            <span class="tech-tag">Machine Learning</span>
+                            <span class="tech-tag">Genomics</span>
+                            <span class="tech-tag">Statistical Analysis</span>
+                        </div>
+
+                        <h3 style="color: var(--forest); margin-bottom: 1rem; margin-top: 2rem;">Impact & Future Work</h3>
+                        <p style="margin-bottom: 1rem;">
+                            This project received an <strong>A+ grade</strong> in my Molecular Biology class and serves as the foundation for my 
+                            Sanger Prize application. Future directions include:
+                        </p>
+                        <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+                            <li>Expanding the variant database to 100+ SNPs</li>
+                            <li>Clinical validation with Pakistani hospital partners</li>
+                            <li>Development of web-based risk assessment tool</li>
+                            <li>Publication in peer-reviewed journal</li>
+                        </ul>
+
+                        <div style="text-align: center; margin-top: 2rem;">
+                            <a href="https://github.com/rimshakanwal/diabetes-genomics-pakistan" target="_blank" class="project-link">
+                                View on GitHub →
+                            </a>
+                            <a href="https://github.com/rimshakanwal/diabetes-genomics-pakistan/blob/main/README.md" target="_blank" class="project-link" style="background: transparent; color: var(--forest); border: 2px solid var(--forest);">
+                                Read Documentation
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Other Projects</h2>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-title">🤖 GPT-Based Biological Interpretation Assistant</div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">Tsinghua University AI Summer School Project</div>
+                    </div>
+                    <div class="project-body">
+                        <p style="margin-bottom: 1rem;">
+                            AI-powered tool using GPT models to explain gene marker lists in accessible language, identify cell types 
+                            from scRNA-seq data, and integrate AI summaries with genomics pipelines. Demonstrates advanced prompt engineering 
+                            and biological data interpretation.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">GPT API</span>
+                            <span class="tech-tag">Prompt Engineering</span>
+                            <span class="tech-tag">scRNA-seq</span>
+                            <span class="tech-tag">NLP</span>
+                        </div>
+                        <a href="https://github.com/rimshakanwal/gpt-bio-assistant" target="_blank" class="project-link">View on GitHub →</a>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-header">
+                        <div class="project-title">🏥 Gallbladder Stone Detection ML Model</div>
+                        <div style="font-size: 0.9rem; opacity: 0.9;">CAMB Punjab University | Published Research</div>
+                    </div>
+                    <div class="project-body">
+                        <p style="margin-bottom: 1rem;">
+                            Machine learning system for automated detection of gallbladder stones from ultrasound images. Implemented 
+                            feature extraction, Random Forest classification, and model optimization. Research published in International 
+                            Journal of Computational Intelligence Systems.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">scikit-learn</span>
+                            <span class="tech-tag">Random Forest</span>
+                            <span class="tech-tag">Image Processing</span>
+                            <span class="tech-tag">Medical AI</span>
+                        </div>
+                        <a href="https://github.com/rimshakanwal/gallbladder-detection" target="_blank" class="project-link">View on GitHub →</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- BLOG TAB -->
+    <div id="blog" class="tab-content">
+        <div class="container" style="padding-top: 3rem; padding-bottom: 3rem;">
+            <div class="blog-content">
+                <h1>10 AI-Powered Projects Transforming Healthcare in Pakistan</h1>
+                <div class="blog-meta">
+                    <strong>Author:</strong> Rimsha Kanwal | <strong>Date:</strong> January 6, 2026 | <strong>Reading Time:</strong> 15 minutes
+                </div>
+
+                <h2>Introduction</h2>
+                <p>
+                    Artificial Intelligence is revolutionizing healthcare worldwide, but its potential impact in Pakistan—where diabetes 
+                    affects 30% of adults and cancer diagnosis often comes too late—is truly transformative. As a bioinformatics researcher, 
+                    I've identified 10 practical AI projects that could save millions of lives in our country. Each project is designed to be 
+                    beginner-friendly yet scientifically rigorous, with clear steps anyone can follow.
+                </p>
+
+                <h2>Part 1: AI for Diabetes in Pakistan</h2>
+
+                <h3>Project 1: Smart Risk Prediction System for Type 2 Diabetes</h3>
+                <p>
+                    <strong>The Problem:</strong> Pakistan has the world's 3rd highest diabetes burden, with 33 million affected individuals. 
+                    Most cases are diagnosed late, when complications have already begun.
+                </p>
+                <p>
+                    <strong>The AI Solution:</strong> A machine learning model that predicts diabetes risk 5-10 years before diagnosis using 
+                    routine health data—no expensive genetic testing required.
+                </p>
+
+                <p><strong>Implementation Example:</strong></p>
+                <pre><code>from sklearn.ensemble import RandomForestClassifier
+import pandas as pd
+
+# Features: age, BMI, family history, diet, exercise, BP
+model = RandomForestClassifier(n_estimators=100)
+model.fit(X_train, y_train)
+
+# Predict for new patient
+risk_score = model.predict_proba(patient_data)
+print(f"Diabetes Risk: {risk_score[0][1]*100:.1f}%")</code></pre>
+
+                <p>
+                    <strong>Expected Results:</strong> 85-90% accuracy, can identify high-risk individuals 5+ years before diagnosis, 
+                    nearly free implementation using existing health records.
+                </p>
+
+                <h3>Project 2: Genetic Variant Analysis for Pakistani Populations</h3>
+                <p>
+                    <strong>The Problem:</strong> Most diabetes genetic research uses European DNA. Pakistani genetics are different—TCF7L2 
+                    risk variant shows 35% frequency in Pakistanis vs 26% in Europeans.
+                </p>
+                <p>
+                    <strong>The AI Solution:</strong> Deep learning model to identify Pakistani-specific genetic variants that increase diabetes 
+                    risk, enabling personalized prevention.
+                </p>
+                <p>
+                    This is exactly what I built in my diabetes genomics project! The full implementation is available on 
+                    <a href="https://github.com/rimshakanwal/diabetes-genomics-pakistan" target="_blank">GitHub</a>.
+                </p>
+
+                <h3>Project 3: WhatsApp Chatbot for Diabetes Education</h3>
+                <p>
+                    <strong>The Problem:</strong> 70% of Pakistani diabetics don't understand their condition. Most health information is 
+                    in English; WhatsApp has 90% penetration.
+                </p>
+                <p>
+                    <strong>The AI Solution:</strong> GPT-powered chatbot speaking Urdu/Punjabi, providing personalized diabetes education via WhatsApp.
+                </p>
+
+                <h3>Project 4: AI Food Recognition for Pakistani Meals</h3>
+                <p>
+                    <strong>The Problem:</strong> Carb counting is essential for diabetes, but Pakistani foods are complex. How many carbs 
+                    in that plate of biryani with raita?
+                </p>
+                <p>
+                    <strong>The AI Solution:</strong> Point your phone camera at food → AI identifies dish → Calculates nutrition → Suggests insulin dose.
+                </p>
+
+                <h3>Project 5: Predictive Analytics for Complications</h3>
+                <p>
+                    <strong>The Problem:</strong> Diabetes complications develop silently. By the time symptoms appear, damage is irreversible.
+                </p>
+                <p>
+                    <strong>The AI Solution:</strong> Time-series AI model analyzing patient history to predict which complications will 
+                    develop in next 1-5 years.
+                </p>
+
+                <h2>Part 2: AI for Cancer Treatment</h2>
+
+                <h3>Project 6: Early Cancer Detection from Routine Blood Tests</h3>
+                <p>
+                    <strong>The Problem:</strong> Cancer in Pakistan is often diagnosed at Stage 3-4, when treatment options are limited. 
+                    Most people can't afford expensive screening tests.
+                </p>
+                <p>
+                    <strong>The AI Solution:</strong> Machine learning model analyzing routine Complete Blood Count (CBC) tests—which cost 
+                    Rs. 500—to detect early cancer signals.
+                </p>
+                <p>
+                    <strong>Expected Results:</strong> 78% sensitivity, 82% specificity, can screen 10 million Pakistanis annually at 1/100th 
+                    the cost of comprehensive screening.
+                </p>
+
+                <h3>Project 7: Personalized Chemotherapy Dosing</h3>
+                <p>
+                    <strong>The Problem:</strong> Standard chemotherapy doses are based on European patients. Pakistanis metabolize drugs differently.
+                </p>
+                <p>
+                    <strong>The AI Solution:</strong> AI model predicting optimal chemotherapy dose based on patient genetics, body composition, 
+                    and liver function.
+                </p>
+
+                <h3>Project 8: AI Pathology Assistant</h3>
+                <p>
+                    <strong>The Problem:</strong> Pakistan has only 200 pathologists for 240 million people. Biopsy results take weeks.
+                </p>
+                <p>
+                    <strong>The AI Solution:</strong> Computer vision AI analyzing tissue slides in minutes, flagging cancerous cells with 95% accuracy.
+                </p>
+
+                <h3>Project 9: Treatment Response Predictor</h3>
+                <p>
+                    <strong>The Problem:</strong> 40% of cancer patients don't respond to first-line chemotherapy. Trying failed treatments 
+                    wastes precious months.
+                </p>
+                <p>
+                    <strong>The AI Solution:</strong> AI analyzing tumor genomics + patient data to predict which chemotherapy will work best.
+                </p>
+
+                <h3>Project 10: Cancer Drug Repurposing for Pakistani Patients</h3>
+                <p>
+                    <strong>The Problem:</strong> New cancer drugs cost $100,000/year—impossible for 95% of Pakistanis.
+                </p>
+                <p>
+                    <strong>The AI Solution:</strong> AI screening 5,000 existing drugs to find which ones could treat cancer. Focus on drugs 
+                    already available in Pakistan.
+                </p>
+
+                <h2>Conclusion: The Path Forward</h2>
+                <p>
+                    These 10 projects aren't science fiction—they're scientifically validated approaches waiting to be implemented in Pakistan. 
+                    Each project uses open-source tools, works with existing healthcare infrastructure, and addresses Pakistan-specific challenges.
+                </p>
+                <p>
+                    As a bioinformatics researcher, I'm working to make these projects reality. My diabetes genomics work is the first step. 
+                    Want to collaborate? Have questions? Reach out at rimshakanwal391@gmail.com
+                </p>
+
+                <p style="margin-top: 3rem; padding: 1.5rem; background: #e8f5e9; border-radius: 8px; text-align: center;">
+                    <strong>Read the complete blog post with all references, code examples, and figures:</strong><br>
+                    <a href="https://github.com/rimshakanwal/rimshakanwal.github.io/blob/main/blog/ai-healthcare-pakistan.md" target="_blank">
+                        View Full Article on GitHub →
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>&copy; 2026 Rimsha Kanwal. All rights reserved.</p>
+        <p style="margin-top: 0.5rem; opacity: 0.8;">Decoding the brain's language through AI and data science</p>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            const tabs = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Remove active from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected tab
+            document.getElementById(tabName).classList.add('active');
+            
+            // Highlight active button
+            event.target.classList.add('active');
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+        }
+    </script>
+</body>
+</html>
